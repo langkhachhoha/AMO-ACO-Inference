@@ -139,7 +139,7 @@ if __name__ == '__main__' :
 
 
         import time
-        max_iteration = 10
+        max_iteration = args.epochs 
         n_customer = len(data)
         k_candidate = 100
         prob_to_update = 0.05
