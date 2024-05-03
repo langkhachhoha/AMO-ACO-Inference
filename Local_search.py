@@ -9,10 +9,24 @@ from Ant import Ant
 from Load_data import *
 import time 
 
-# max_cap, xcoord, ycoord, demand, e_time, l_time, s_time, data = load_data()
-# print(demand)
+max_cap, xcoord, ycoord, demand, e_time, l_time, s_time, data = load_data()
+cus_num=len(demand)-1
+print(cus_num)
+neighboor=[[] for _ in range(cus_num+1)]
+neighboor[0]=0
+for i in range(1,cus_num+1):
+    min_dis = 10**10
+    for j in range(1,cus_num+1):                
+        if j!=i:
+            if ((xcoord[i]-xcoord[j])**2+(ycoord[i]-ycoord[j])**2)**(1/2)<min_dis:
+                min_dis = ((xcoord[i]-xcoord[j])**2+(ycoord[i]-ycoord[j])**2)**(1/2)              
+                vt = j 
+    neighboor[i] = vt
+
+
+
 def check(route):
-    max_cap, xcoord, ycoord, demand, e_time, l_time, s_time, data = load_data()
+    # max_cap, xcoord, ycoord, demand, e_time, l_time, s_time, data = data_zip
     route2 = copy.deepcopy(route)
 
     # check cap
@@ -33,7 +47,8 @@ def check(route):
     return True
 
 def distance(i,j): #tính khoảng cách 2 điểm
-    max_cap, xcoord, ycoord, demand, e_time, l_time, s_time, data = load_data()
+    # max_cap, xcoord, ycoord, demand, e_time, l_time, s_time, data = load_data()
+    # max_cap, xcoord, ycoord, demand, e_time, l_time, s_time, data = data_zip
     return ((xcoord[i]-xcoord[j])**2+(ycoord[i]-ycoord[j])**2)**(1/2)
 
 def cost2(route):  # tính tổng đường đi của 1 cá thể
@@ -322,7 +337,7 @@ def ls1(t,num_slices=10):
 
 
 def dif(i,j):
-    max_cap, xcoord, ycoord, demand, e_time, l_time, s_time, data = load_data()
+    # max_cap, xcoord, ycoord, demand, e_time, l_time, s_time, data = load_data()
     return abs(int(e_time[i])-int(e_time[j]))+abs(int(l_time[i])-int(l_time[j]))
 
 
@@ -369,35 +384,11 @@ def ls2(t,epochs=10):
 # Local search Cuong 
         
 # #tìm hàm neighboor[i] = j <=> khách hàng thứ i gần j nhất
-# cus_num=len(demand)-1
-# print(cus_num)
-# neighboor=[[] for _ in range(cus_num+1)]
-# neighboor[0]=0
-# for i in range(1,cus_num+1):
-#     min_dis = 10**10
-#     for j in range(1,cus_num+1):                
-#         if j!=i:
-#             if distance(i,j)<min_dis:
-#                 min_dis = distance(i,j)                
-#                 vt = j 
-#     neighboor[i] = vt
+
 
 
 #chèn 1 điểm vào 1 đường
 def insert_cus(cus1,route):
-    max_cap, xcoord, ycoord, demand, e_time, l_time, s_time, data = load_data()
-    cus_num=len(demand)-1
-    print(cus_num)
-    neighboor=[[] for _ in range(cus_num+1)]
-    neighboor[0]=0
-    for i in range(1,cus_num+1):
-        min_dis = 10**10
-        for j in range(1,cus_num+1):                
-            if j!=i:
-                if distance(i,j)<min_dis:
-                    min_dis = distance(i,j)                
-                    vt = j 
-        neighboor[i] = vt
 
 
     min_insert = 10**10
@@ -414,19 +405,6 @@ def insert_cus(cus1,route):
 
 
 def min1_dist(ch_cus,routes): 
-    max_cap, xcoord, ycoord, demand, e_time, l_time, s_time, data = load_data()
-    cus_num=len(demand)-1
-    print(cus_num)
-    neighboor=[[] for _ in range(cus_num+1)]
-    neighboor[0]=0
-    for i in range(1,cus_num+1):
-        min_dis = 10**10
-        for j in range(1,cus_num+1):                
-            if j!=i:
-                if distance(i,j)<min_dis:
-                    min_dis = distance(i,j)                
-                    vt = j 
-        neighboor[i] = vt
 
     neigh_routes = -1
     ch_routes = -1              #ch_cus : là khách hàng được chọn để tráo vị trí với neighboor của nó
@@ -471,19 +449,6 @@ def min1_dist(ch_cus,routes):
         
 
 def ls3(t):
-    max_cap, xcoord, ycoord, demand, e_time, l_time, s_time, data = load_data()
-    cus_num=len(demand)-1
-    print(cus_num)
-    neighboor=[[] for _ in range(cus_num+1)]
-    neighboor[0]=0
-    for i in range(1,cus_num+1):
-        min_dis = 10**10
-        for j in range(1,cus_num+1):                
-            if j!=i:
-                if distance(i,j)<min_dis:
-                    min_dis = distance(i,j)                
-                    vt = j 
-        neighboor[i] = vt
     t1=copy.deepcopy(t)
     routes=[]
       # routes = t1
