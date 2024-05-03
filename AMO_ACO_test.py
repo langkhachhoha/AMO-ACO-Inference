@@ -31,7 +31,7 @@ def get_args():
     parser = argparse.ArgumentParser(description="CVRPTW_GECCO2024")
     parser.add_argument("--size", type=int, default=100, help="size of data")
     parser.add_argument("--data_path", type=str, default='None', help="the folder data to run")
-    parser.add_argument("--epochs", default=500, type=int, help="Total number of epochs")
+    parser.add_argument("--epochs", default=10, type=int, help="Total number of epochs")
 
     args = parser.parse_args()
     return args
