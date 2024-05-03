@@ -397,8 +397,8 @@ def insert_cus(cus1,route):
 
 
 def min1_dist(ch_cus,routes):   
-    neigh_routes = 1e10
-    ch_routes = 2e10               #ch_cus : là khách hàng được chọn để tráo vị trí với neighboor của nó
+    neigh_routes = 1
+    ch_routes = 1              #ch_cus : là khách hàng được chọn để tráo vị trí với neighboor của nó
     routes1=route_1(routes)
     while routes1[-1]==[0,0]:
         routes1.pop()
@@ -413,6 +413,7 @@ def min1_dist(ch_cus,routes):
         return False,0.0
     else:
         new_ch_routes = copy.deepcopy(routes1[ch_routes])
+        # print(neigh_routes)
         new_neigh_routes = copy.deepcopy(routes1[neigh_routes])      
         sum1 = cost_route(new_ch_routes)+ cost_route(new_neigh_routes)
         find_vt =  insert_cus(ch_cus,new_neigh_routes)
