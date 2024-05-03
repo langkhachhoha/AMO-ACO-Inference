@@ -10,6 +10,7 @@ from Load_data import *
 import time 
 
 max_cap, xcoord, ycoord, demand, e_time, l_time, s_time, data = load_data()
+
 cus_num=len(demand)-1
 print(cus_num)
 neighboor=[[] for _ in range(cus_num+1)]
