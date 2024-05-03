@@ -27,6 +27,7 @@ for i in range(1,cus_num+1):
 
 def check(route):
     # max_cap, xcoord, ycoord, demand, e_time, l_time, s_time, data = data_zip
+    max_cap, xcoord, ycoord, demand, e_time, l_time, s_time, data = load_data()
     route2 = copy.deepcopy(route)
 
     # check cap
