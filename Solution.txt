@@ -1,5 +1,28 @@
-Chưa có cơ chế Local Search trên 1 route (tất cả trc nay đều là local search trên nhiều route với nhau) => Kẹt tại các bài toán mà thời gian sát nhau
-C102
+R101
 
-Thêm 1 local search trên 1 route
-Thêm 1 cơ chế trên 1 route.
+Route #1: 12 76 79 3 68 77
+Route #2: 36 47 19 8 46
+Route #3: 95 87 97
+Route #4: 63 64 49 48
+Route #5: 27 69 50 1
+Route #6: 72 75 22 56 74
+Route #7: 33 81 34 35
+Route #8: 28 29 78 54 24 80
+Route #9: 2 21 73 41 26
+Route #10: 31 88 7
+Route #11: 62 11 90 10
+Route #12: 14 44 38
+Route #13: 52 6 96 60 89
+Route #14: 92 98 16 86 91 100
+Route #15: 59 99 94
+Route #16: 5 83 61 85 37 93
+Route #17: 65 71 66
+Route #18: 40 53
+Route #19: 42 15 57 43 13 58
+Route #20: 39 23 67 55 4 25
+Route #21: 45 82 18 84 17
+Route #22: 30 51 9 20 32 70
+Time: 34.45
+Vehicle: 22
+Distance: 1729.8038229179278
+-----------------------------------------------
