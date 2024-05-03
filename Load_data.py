@@ -7,7 +7,7 @@ from scipy.spatial.distance import cdist
 from ultis import *
 from Ant import Ant 
 
-
+print('here')
 def load_data():
     xcoord=np.array([])
     ycoord=np.array([])

@@ -1,23 +1,24 @@
-import torch
-from torch.distributions import Categorical
-import random
-import itertools
-import numpy as np
-import copy
-import torch
-from torch import nn
-from torch.nn import functional as F
-from copy import deepcopy
-import math 
-import numpy as np
+# import torch
+# from torch.distributions import Categorical
+# import random
+# import itertools
+# import numpy as np
+# import copy
+# import torch
+# from torch import nn
+# from torch.nn import functional as F
+# from copy import deepcopy
+# import math 
+# import numpy as np
+# from Model.Config import *
+# from Model.AMO import * 
+# from Ant_k_starts import *
+# from Normalize_data import *
+# from Ant import *
+# from Injection import *
+# from Cross_Exchange import *
+# # from Local_search import * 
 from Model.Config import *
-from Model.AMO import * 
-from Ant_k_starts import *
-from Normalize_data import *
-from Ant import *
-from Injection import *
-from Cross_Exchange import *
-from Local_search import * 
 from Draw import *
 import argparse
 import os 
@@ -67,6 +68,9 @@ if __name__ == '__main__' :
     print(Data_to_run)
 
 
+    # from Local_search import * 
+
+
 
     for da in Data_to_run:
         with open('txt/{}'.format(da), 'r') as source:
@@ -74,6 +78,27 @@ if __name__ == '__main__' :
 
         with open('Data.txt', 'w') as destination:
             destination.write(content)
+        import torch
+        from torch.distributions import Categorical
+        import random
+        import itertools
+        import numpy as np
+        import copy
+        import torch
+        from torch import nn
+        from torch.nn import functional as F
+        from copy import deepcopy
+        import math 
+        import numpy as np
+        # from Model.Config import *
+        from Model.AMO import * 
+        from Ant_k_starts import *
+        from Normalize_data import *
+        from Ant import *
+        from Injection import *
+        from Cross_Exchange import *
+        from Local_search import * 
+        from Draw import *
 
 
         EPS = 1e-10

@@ -10,6 +10,7 @@ from Load_data import *
 import time 
 
 max_cap, xcoord, ycoord, demand, e_time, l_time, s_time, data = load_data()
+# print(demand)
 def check(route):
     route2 = copy.deepcopy(route)
 
@@ -369,6 +370,7 @@ def ls2(t,epochs=10):
         
 #tìm hàm neighboor[i] = j <=> khách hàng thứ i gần j nhất
 cus_num=len(demand)-1
+print(cus_num)
 neighboor=[[] for _ in range(cus_num+1)]
 neighboor[0]=0
 for i in range(1,cus_num+1):
@@ -403,10 +405,13 @@ def min1_dist(ch_cus,routes):
     while routes1[-1]==[0,0]:
         routes1.pop()
     neigh_cus = neighboor[ch_cus]      #neighboor của nó
+    # print(neigh_cus)
     for i1 in range (len(routes1)):
-        if ch_cus in routes1[i1]:          #vị trí route chứa ch_cus
+        if ch_cus in routes1[i1]:     
+            # print('Done_1')     #vị trí route chứa ch_cus
             ch_routes = i1
-        if neigh_cus in routes1[i1]:           #vị trí route chứa neighboor
+        if neigh_cus in routes1[i1]:  
+            # print('Done_2')           #vị trí route chứa neighboor
             neigh_routes = i1    
     # print(neigh_routes, ch_routes)
     if neigh_routes == -1 and ch_routes == -1:
@@ -420,8 +425,11 @@ def min1_dist(ch_cus,routes):
         sum1 = cost_route(new_ch_routes)+ cost_route(new_neigh_routes)
         find_vt =  insert_cus(ch_cus,new_neigh_routes)
         if find_vt>0:
-            new_neigh_routes.insert(find_vt,ch_cus)         # chèn ch_cus vào vị trí best của neigh
-            new_ch_routes.remove(ch_cus)            #xóa ch_cus khỏi route ban đầu của nó 
+            new_neigh_routes.insert(find_vt,ch_cus)  
+            # if ch_cus in new_ch_routes:       # chèn ch_cus vào vị trí best của neigh
+            new_ch_routes.remove(ch_cus) 
+            # else:
+            #     return False, 0.0 #xóa ch_cus khỏi route ban đầu của nó 
             if cost_route(new_ch_routes)+cost_route(new_neigh_routes) < sum1:        #nếu mà quãng đường tối ưu thì OK
                 routes1[ch_routes]=new_ch_routes
                 routes1[neigh_routes]=new_neigh_routes
