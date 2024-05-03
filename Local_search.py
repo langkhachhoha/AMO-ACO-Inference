@@ -397,8 +397,8 @@ def insert_cus(cus1,route):
 
 
 def min1_dist(ch_cus,routes):   
-    neigh_routes = 1
-    ch_routes = 1              #ch_cus : là khách hàng được chọn để tráo vị trí với neighboor của nó
+    neigh_routes = -1
+    ch_routes = -1              #ch_cus : là khách hàng được chọn để tráo vị trí với neighboor của nó
     routes1=route_1(routes)
     while routes1[-1]==[0,0]:
         routes1.pop()
@@ -409,6 +409,8 @@ def min1_dist(ch_cus,routes):
         if neigh_cus in routes1[i1]:           #vị trí route chứa neighboor
             neigh_routes = i1    
     # print(neigh_routes, ch_routes)
+    if neigh_routes == -1 and ch_routes == -1:
+        return False, 0.0
     if neigh_routes == ch_routes:
         return False,0.0
     else:
