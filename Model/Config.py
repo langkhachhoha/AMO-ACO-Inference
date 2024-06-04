@@ -49,4 +49,4 @@ class Data_400():
         self.n_ants = 20
         self.steps_per_epoch = 100
         self.epochs = 500
-        self.q = 0.05
+        self.q = 0.1
