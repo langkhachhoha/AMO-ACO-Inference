@@ -30,6 +30,7 @@ class ACO():
                  decay=0.9,
                  alpha=2,
                  beta=0.5,
+                options=0,
                  elitist=False,
                  min_max=False,
                  pheromone=None,
@@ -39,6 +40,7 @@ class ACO():
                  adaptive=False,
                  prob = 0.3
                  ): # DONE
+        self.options = options
         self.prob = prob 
         self.topk = topk,
         self.k = k
@@ -56,14 +58,13 @@ class ACO():
         self.adaptive = adaptive
 
 
+
         if pheromone is None:
             self.pheromone = torch.ones_like(self.distances, device = device)
         else:
             self.pheromone = pheromone
 
         self.heuristic = torch.where(distances == 0, -1e10, 1/distances) if heuristic is None else heuristic # TODO
-        # if self.heuristic is None:
-        #     for i in len(d)
 
         self.shortest_path = None
         self.lowest_cost = float('inf')
@@ -71,30 +72,33 @@ class ACO():
         self.device = device
 
     def sample(self): # DONE
-        paths = self.gen_path(require_start_moves=True)
-        costs = self.gen_path_costs(paths)
+        if self.options < 2:
+            paths = self.gen_path(require_start_moves=True)
+            costs = self.gen_path_costs(paths)
+        else:  
+            paths = self.gen_path(require_start_moves=False)
+            costs = self.gen_path_costs(paths)
         return paths, costs
 
 
     def run(self): # DONE
-        paths_1 = self.gen_path(require_start_moves=True)
-        costs_1 = self.gen_path_costs(paths_1)
-        paths_2 = self.gen_path(require_start_moves=False)
-        costs_2 = self.gen_path_costs(paths_2)
+        if self.options < 2:
+            paths_1 = self.gen_path(require_start_moves=True)
+            costs_1 = self.gen_path_costs(paths_1)
+            paths_2 = self.gen_path(require_start_moves=False)
+            costs_2 = self.gen_path_costs(paths_2)
+        else:
+            paths_1 = self.gen_path(require_start_moves=False)
+            costs_1 = self.gen_path_costs(paths_1)
+            paths_2 = self.gen_path(require_start_moves=False)
+            costs_2 = self.gen_path_costs(paths_2)
         c = max(paths_1.shape[0], paths_2.shape[0]) + 1
         paths_1 = torch.concat((paths_1, torch.zeros(size = (c - paths_1.shape[0], paths_1.shape[1]))), dim = 0)
         paths_2 = torch.concat((paths_2, torch.zeros(size = (c - paths_2.shape[0], paths_2.shape[1]))), dim = 0)
         paths = torch.concat((paths_1, paths_2), dim = 1)
         costs = torch.concat((costs_1, costs_2), dim = 0)
-        # best_cost, best_idx = costs.min(dim=0)
-        # if best_cost < self.lowest_cost:
-        #     self.shortest_path = paths[:, best_idx]
-        #     self.lowest_cost = best_cost
-        #     improved = True
-        # self.update_pheronome(paths, costs)
         return paths, costs
 
-        # return self.lowest_cost
 
     @torch.no_grad()
     def update_pheronome(self, paths, costs): # DONE (Lấy 10% tốt nhất)
@@ -141,7 +145,7 @@ class ACO():
 
         done = self.check_done(visit_mask, actions)
         # first_start
-        if require_start_moves == True:
+        if require_start_moves:
             for _ in range(1):
                 pre_node = copy.deepcopy(actions)
                 actions = self.topk_start_move()
@@ -151,6 +155,7 @@ class ACO():
                 used_time, time_mask = self.update_time_mask(actions, pre_node, used_time)
 
                 done = self.check_done(visit_mask, actions)
+
 
         while not done:
             pre_node = copy.deepcopy(actions)
@@ -162,12 +167,15 @@ class ACO():
 
 
             done = self.check_done(visit_mask, actions)
-        else:
-            return torch.stack(paths_list)
+
+        return torch.stack(paths_list)
 
 
     def topk_start_move(self): # DONE
-        actions = self.topk[0].repeat(self.n_ants) # (n_ants * k, )
+        if self.options == 0:
+            actions = self.topk[0].repeat(self.n_ants) # (n_ants * k, )
+        else:
+            actions = torch.topk(self.distances[0][1:], self.k, largest=False).indices.repeat(self.n_ants)
         return actions
 
     def pick_move(self, prev, visit_mask, capacity_mask, time_mask): # DONE
