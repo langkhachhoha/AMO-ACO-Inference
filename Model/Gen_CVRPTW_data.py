@@ -108,7 +108,7 @@ def gen_pyg_data(cfg, demands, time_window, durations, service_window, time_fact
     pyg_data = Data(x=x.unsqueeze(1), edge_attr=edge_attr, edge_index=edge_index, time_window = time_window, durations = durations, service_window = service_window, time_factor = time_factor)
     return pyg_data
 
-def gen_pyg_data_normalize(cfg, demands, time_window, durations, service_window, time_factor, distances, device, scale = 1000.0):
+def gen_pyg_data_normalize(cfg, demands, time_window, durations, service_window, time_factor, distances, cap, device, scale = 1000.0):
     n = demands.size(0)
     nodes = torch.arange(n, device=device)
     u = nodes.repeat(n)
@@ -118,6 +118,6 @@ def gen_pyg_data_normalize(cfg, demands, time_window, durations, service_window,
     x = demands
     x = torch.where(x == 0, 1e-7, x)
     edge_attr = torch.where(edge_attr == 0, 1e-7, edge_attr)
-    pyg_data = Data(x=x.unsqueeze(1)/cfg.time_factor, edge_attr=edge_attr/cfg.time_factor, edge_index=edge_index, time_window = time_window/cfg.service_window, durations = durations/cfg.service_window, service_window = service_window, time_factor = time_factor)
+    pyg_data = Data(x=x.unsqueeze(1)/cap, edge_attr=edge_attr/scale, edge_index=edge_index, time_window = time_window/scale, durations = durations/scale, service_window = service_window, time_factor = time_factor)
     return pyg_data
 

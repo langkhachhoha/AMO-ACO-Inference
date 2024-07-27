@@ -16,7 +16,7 @@ import math
 import numpy as np
 
 class Net2(nn.Module):
-    def __init__(self, k_start_node = 10 ,n_heads = 6, embed_dim = 64, n_layers = 2, node_dim = 4, depth = 3 ):
+    def __init__(self, k_start_node = 10 ,n_heads = 4, embed_dim = 64, n_layers = 2, node_dim = 4, depth = 3 ):
         super().__init__()
         self.k = k_start_node
         self.depth = int(depth)
@@ -31,7 +31,6 @@ class Net2(nn.Module):
         self.act_fn = getattr(F, 'silu')
         self.MLP2 = nn.Linear(int(self.embed_dim + 1), int(self.embed_dim // 2))
         self.MLP3 = nn.Linear(int(self.embed_dim // 2), 1)
-        # self.final_act_fn = F.softmax(dim = 1)
 
         self.init_parameters()
 
