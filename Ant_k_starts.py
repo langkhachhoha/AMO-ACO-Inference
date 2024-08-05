@@ -64,7 +64,7 @@ class ACO():
         else:
             self.pheromone = pheromone
 
-        self.heuristic = torch.where(distances == 0, -1e10, 1/distances) if heuristic is None else heuristic # TODO
+        self.heuristic = torch.where(distances == 0, 1e-10, 1/distances) if heuristic is None else heuristic # TODO
 
         self.shortest_path = None
         self.lowest_cost = float('inf')
