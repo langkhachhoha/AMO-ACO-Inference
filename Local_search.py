@@ -250,6 +250,7 @@ def search4(route, colony, n_customer):
 
 def local_search(t, colony, n_customer, q):
     t1=copy.deepcopy(t)
+
     routes=[]
     # routes = t1
     for i in range(len(t1)):
