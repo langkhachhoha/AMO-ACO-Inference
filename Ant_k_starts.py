@@ -30,7 +30,7 @@ class ACO():
                  decay=0.9,
                  alpha=2,
                  beta=0.5,
-                options=0,
+                 options=0,
                  elitist=False,
                  min_max=False,
                  pheromone=None,
